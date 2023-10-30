@@ -19,7 +19,7 @@ def add(request):
             try:
                 result=int(one)/int(two)
             except ZeroDivisionError:
-                print('can not divide by zer')                
+                print('can not divide by zero')                
         
         return HttpResponse(result)
     else:
