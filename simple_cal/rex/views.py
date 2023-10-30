@@ -2,7 +2,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def dis(request):
-    return HttpResponse("helloo this is simple calculator")
-def read(request):
-    return render(request,'index.html')
+def add(request):
+    if request.method=='POST':
+        one=request.POST['num1']
+        two=request.POST['num2']
+        return HttpResponse(int(one)+int(two))
+    else:
+        return render(request,'index.html')
