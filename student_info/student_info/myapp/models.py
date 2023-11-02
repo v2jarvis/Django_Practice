@@ -1,5 +1,6 @@
 #create multiple model here
 from django.db import models
+from django import forms
 
 class Employee(models.Model):
     sid=models.AutoField(primary_key=True)
