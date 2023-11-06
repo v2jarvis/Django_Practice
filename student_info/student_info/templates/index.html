@@ -8,21 +8,6 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="shortcut icon" href="{% static 'fevicon/home.ico' %}">
-    <script>
-      function validateForm() {
-          var name = document.forms["myForm"]["name"].value;
-          var email = document.forms["myForm"]["email"].value;
-          var mob = document.forms["myForm"]["mob"].value;
-          var course = document.forms["myForm"]["course"].value;
-          var address = document.forms["myForm"]["address"].value;
-
-          if (name === "" || email === "" || mob =="" || course=="" || address =="" ) {
-              alert("Both name and email fields must be filled out");
-              return false;
-          }
-          return true;
-      }
-  </script>
     <title>StudentInfo</title>
 </head>
 <body>
