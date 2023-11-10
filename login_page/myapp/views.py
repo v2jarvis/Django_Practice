@@ -7,10 +7,12 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 
 def home(request):
-    return render(request,"home.html")
+    return render(request,"index.html")
 
 def register(request):
     if request.method=='POST':
+        first=request.POST['first']
+        last=request.POST['last']
         user=request.POST['user']
         email=request.POST['email']
         cpass=request.POST['cpass']
@@ -24,7 +26,7 @@ def register(request):
                 print("Already Exist")
                 return redirect('register')
             else:
-                User.objects.create(username=user,email=email,password=make_password(rpass),is_superuser=super,is_staff=staff)
+                User.objects.create(first_name=first,last_name=last,username=user,email=email,password=make_password(rpass),is_superuser=super,is_staff=staff)
                 return redirect('login')
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
@@ -37,7 +39,7 @@ def loginn(request):
         password=request.POST['password']
         user=authenticate(username=user,password=password)
         if(user is not None):
-            return HttpResponse(user)
+            return render(request,'home.html')
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
     return render(request,'login.html')            
