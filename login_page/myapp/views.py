@@ -15,6 +15,8 @@ def register(request):
         email=request.POST['email']
         cpass=request.POST['cpass']
         rpass=request.POST['rpass']
+        super=request.POST['super']
+        staff=request.POST['staff']
 
         if(cpass==rpass):
             msg=User.objects.filter(username=user).exists()
@@ -22,7 +24,7 @@ def register(request):
                 print("Already Exist")
                 return redirect('register')
             else:
-                User.objects.create(username=user,email=email,password=make_password(rpass))
+                User.objects.create(username=user,email=email,password=make_password(rpass),is_superuser=super,is_staff=staff)
                 return redirect('login')
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
@@ -39,3 +41,6 @@ def loginn(request):
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
     return render(request,'login.html')            
+
+def show(request):
+    pass

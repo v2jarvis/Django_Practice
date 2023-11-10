@@ -6,7 +6,7 @@
   font-family: 'Poppins',sans-serif;
 }
 body{
-  background: #1abc9c;
+  background: #0096A3;
   overflow: hidden;
 }
 ::selection{
@@ -15,7 +15,7 @@ body{
 .container{
   max-width: 440px;
   padding: 0 20px;
-  margin: 170px auto;
+  margin: 80px auto;
 }
 .wrapper{
   width: 100%;
