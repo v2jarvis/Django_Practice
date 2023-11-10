@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,login
 
 def home(request):
     return render(request,"home.html")
@@ -39,7 +39,8 @@ def loginn(request):
         password=request.POST['password']
         user=authenticate(username=user,password=password)
         if(user is not None):
-            return render(request,'user.html')
+            login(request, user)
+            return render(request,'user.html', {'user': user})
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
     return render(request,'login.html')            
