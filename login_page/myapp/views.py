@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 
 def home(request):
-    return render(request,"index.html")
+    return render(request,"home.html")
 
 def register(request):
     if request.method=='POST':
@@ -39,7 +39,7 @@ def loginn(request):
         password=request.POST['password']
         user=authenticate(username=user,password=password)
         if(user is not None):
-            return render(request,'home.html')
+            return render(request,'user.html')
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
     return render(request,'login.html')            
