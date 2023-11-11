@@ -44,6 +44,3 @@ def loginn(request):
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
     return render(request,'login.html')            
-
-def show(request):
-    pass
