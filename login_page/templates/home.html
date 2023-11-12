@@ -1,10 +1,11 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'fevicon/home.ico' %}">  
+    <link rel="shortcut icon" href="{% static 'fevicon/home.ico' %}">
     <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
@@ -12,6 +13,7 @@
             font-family: Arial, sans-serif;
             background-color: #0096A3;
         }
+
         header {
             background-color: #343a40;
             color: white;
@@ -34,11 +36,13 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <h4 style="color: #f8f9fa;">Login Authentication</h4>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -57,18 +61,34 @@
             <a class="btn btn-primary ml-2" href="{% url 'register' %}" role="button">Sign Up</a>
         </div>
     </nav>
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome</h1>
+            <p class="lead">With the help of <b>Django Framework</b> you can build robust authentication for your web application</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </div>
 
-    <main>
-  
-
-
-
-
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Section 1</h2>
+                <p>Content for section 1 goes here.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Section 2</h2>
+                <p>Content for section 2 goes here.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Section 3</h2>
+                <p>Content for section 3 goes here.</p>
+            </div>
+        </div>
 
     </main>
-
     <footer>
         <p>&copy; 2023 Login Authentication. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
