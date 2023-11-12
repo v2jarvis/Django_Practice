@@ -9,6 +9,9 @@ from django.contrib.auth import authenticate,login
 def home(request):
     return render(request,"home.html")
 
+def about(request):
+    return render(request,"about.html")
+
 def register(request):
     if request.method=='POST':
         first=request.POST['first']
