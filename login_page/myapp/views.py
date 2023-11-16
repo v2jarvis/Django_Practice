@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 
 def home(request):
     return render(request,"home.html")
@@ -47,3 +47,7 @@ def loginn(request):
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")
     return render(request,'login.html')            
+
+def logoutt(request):
+    logout 
+    return redirect('login')
