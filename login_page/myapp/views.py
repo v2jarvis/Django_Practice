@@ -49,5 +49,5 @@ def loginn(request):
     return render(request,'login.html')            
 
 def logoutt(request):
-    logout 
+    logout(request)
     return redirect('login')
