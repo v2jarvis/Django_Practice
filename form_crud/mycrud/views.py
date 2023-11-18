@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .forms import crudform
+from .models import info
 
-# Create your views here.
+def myshow(request):
+    show=info.objects.all()
+    return render(request,'show.html',{'show':show})
+
+def add(request):
+    if request.method=='POST':
+        data=crudform(request.POST)
+        data.save()
+        return redirect('show')
+    myobj=crudform()
+    return render(request,'add.html',{'add':myobj})
