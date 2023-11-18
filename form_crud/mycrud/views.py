@@ -13,3 +13,7 @@ def add(request):
         return redirect('show')
     myobj=crudform()
     return render(request,'add.html',{'add':myobj})
+def delete(request,id):
+    data=info.objects.get(id=id)
+    data.delete()
+    
