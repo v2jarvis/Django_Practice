@@ -14,7 +14,7 @@ def add(request):
     myobj=crudform()
     return render(request,'add.html',{'add':myobj})
 
-def delete(request,id):
-     data=info.objects.get(id=id)
-     data.delete()
-     return render(request,"show.html")
+def delete(request, id):
+    data=info.objects.get(id=id)
+    data.delete()
+    return redirect('show')
