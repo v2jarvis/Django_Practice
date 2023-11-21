@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import crudform
 from .models import info
 
@@ -18,3 +18,14 @@ def delete(request, id):
     data=info.objects.get(id=id)
     data.delete()
     return redirect('show')
+
+def edit(request, id):
+    instance = get_object_or_404(info, id=id)
+    if request.method == 'POST':
+        form = crudform(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('show')
+    else:
+        form = crudform(instance=instance)
+    return render(request, 'edit.html', {'form': form})
