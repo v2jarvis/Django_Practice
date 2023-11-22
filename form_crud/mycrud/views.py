@@ -20,12 +20,12 @@ def delete(request, id):
     return redirect('show')
 
 def edit(request, id):
-    form=info.objects.get(id=id)
+    instance=info.objects.get(id=id)
     if request.method == 'POST':
-        form=crudform(request.POST)
+        form=crudform(request.POST, instance=instance)
         if form.is_valid():
             form.save()
             return redirect('show')
     else:
-        form=crudform()
+        form = crudform(instance=instance)
     return render(request, 'edit.html', {'form': form})
