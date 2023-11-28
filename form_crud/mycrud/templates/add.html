@@ -10,7 +10,7 @@
     {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-        {{add.as_p}}
+        {{add |crispy}}
         <input type="submit">
     </form>
     {% endblock %}
