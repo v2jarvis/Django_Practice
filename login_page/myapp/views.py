@@ -51,3 +51,58 @@ def loginn(request):
 def logoutt(request):
     logout(request)
     return redirect('login')
+
+def analyze(request):
+    text=request.GET.get('text','default')
+    removepunc=request.GET.get('removepunc','off')
+    fullcaps=request.GET.get('fullcaps','off')
+    fullsmall=request.GET.get('fullsmall','off')
+    newlnrem=request.GET.get('newlnrem','off')
+    spacerem=request.GET.get('spacerem','off')
+    charcount=request.GET.get('charcount','off')
+    
+    punctuations='''!"#$%&'()*+, -./:;<=>?@[\]^_`{|}~'''
+    if (removepunc=='on'):
+        analyzed=''
+        for i in text:
+            if i not in punctuations:
+                analyzed=analyzed+i
+        val={'purpose':'PunctuationsRemoved','analyzed_text':analyzed}
+        return render(request,'analyze.html',val)
+
+    elif(fullcaps=='on'):
+        analyzed=''
+        for i in text:
+            analyzed=analyzed+i.upper()
+        val={'purpose':'Upppercase','analyzed_text':analyzed}
+        return render(request,'analyze.html',val)    
+
+    elif(fullsmall=='on'):
+        analyzed=''
+        for i in text:
+            analyzed=analyzed+i.lower()
+        val={'purpose':'Lowercase','analyzed_text':analyzed}
+        return render(request,'analyze.html',val)    
+
+    elif(newlnrem=='on'):
+        analyzed=''
+        for i in text:
+            if i!='\n':
+                analyzed=analyzed+i
+        val={'purpose':'Newlineremoved','analyzed_text':analyzed}
+        return render(request,'analyze.html',val)            
+
+    elif(spacerem=='on'):
+        analyzed=''
+        for i in text:
+            analyzed=analyzed+i.replace(" ","")
+        val={'purpose':'SapceRemoved','analyzed_text':analyzed}
+        return render(request,'analyze.html',val)                
+
+    elif(charcount=='on'):
+        analyzed=len(text)
+        val={'purpose':'CharCounter','analyzed_text':analyzed}
+        return render(request,'analyze.html',val)                
+    
+    else:
+        return HttpResponse("Error")
