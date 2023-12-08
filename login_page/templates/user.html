@@ -54,7 +54,7 @@
     </nav>
 
     <main>
-        <form action="/analyze" method="get">
+        <form action="{% url 'analyze' %}" method="post">
             {% csrf_token %}
             <textarea name='text' style='margin: 0px; width: 721px; height: 93px;'></textarea>
             <button type='submit'>Analyze Text</button>
@@ -66,10 +66,7 @@
             <label>LowerToUpper</label>
             <br>
             <input type="checkbox" name="fullsmall">
-            <label>UppertOLower</label>
-            <br>
-            <input type="checkbox" name="newlnrem">
-            <label>NewLineRemover</label>
+            <label>UpperToLower</label>
             <br>
             <input type="checkbox" name="spacerem">
             <label>SapceRemover</label>
@@ -87,7 +84,7 @@
             <br>
             <br>
             <h1>Welcome, {{ user.first_name }} {{ user.last_name }}!</h1>
-            <a href="{% url 'login' %}" class="btn btn-danger">Logout</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         </center>
         
 
@@ -96,7 +93,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Login Authentication. All rights reserved.</p>
+        <p>&copy; 2023 Text Analyzer using Login Authentication by Niteesh. All rights reserved.</p>
     </footer>
 </body>
 </html>

@@ -14,6 +14,10 @@ def std_info(request):
         return redirect('show')
     else:
         return render(request,'index.html')
+
+def show(request):
+    data=Employee.objects.all()
+    return render(request,'show.html',{'data':data})      
     
 def del_data(request,sid):
     data=Employee.objects.get(sid=sid)
@@ -37,6 +41,3 @@ def update(request, sid):
     else:
         return redirect('show')
 
-def show(request):
-    data=Employee.objects.all()
-    return render(request,'show.html',{'data':data})  
