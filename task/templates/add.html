@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Data</title>
+</head>
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+        <label for="json_file">Upload_Json:</label>
+        <input type="file" name="json_file">
+        <label for="csv_file">Upload_Csv:</label>
+        <input type="file"  name="csv_file">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+<!-- {% url 'add' %} -->
