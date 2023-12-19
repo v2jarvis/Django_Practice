@@ -10,15 +10,15 @@ def add(request):
             # csv_data=form.cleaned_data.get('csv_data')
             # MyModel.objects.create(csv_data=csv_data)
 
-            json_file=request.FILES.get('json_file')
-            csv_file=request.FILES.get('csv_file')
+            # json_file=request.FILES.get('json_file')
+            # csv_file=request.FILES.get('csv_file')
 
-            if json_file:
-                json_data1=json.loads(json_file.read().decode('utf-8'))
-                MyModel.objects.create(json_data=json_data1)
-            if csv_file:
-                csv_data1=csv_file.read().decode('utf-8')
-                MyModel.objects.create(csv_data=csv_data1)
+            # if json_file:
+            #     json_data1=json.loads(json_file.read().decode('utf-8'))
+            #     MyModel.objects.create(json_data=json_data1)
+            # if csv_file:
+            #     csv_data1=csv_file.read().decode('utf-8')
+            #     MyModel.objects.create(csv_data=csv_data1)
                     
             return HttpResponse('success') 
 
