@@ -25,12 +25,12 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">Num1:</span>
                 <input type="number" name="num1" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default">
+                    aria-describedby="inputGroup-sizing-default" required>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">Num2:</span>
                 <input type="number" name="num2" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default">
+                    aria-describedby="inputGroup-sizing-default" required>
             </div>
             <select name="op">
                 <option value="+">Addition</option>
@@ -42,6 +42,10 @@
             <input type="submit" value="result">
         </center>
     </form>
+    <center>
+        {{val}}
+    </center>
+    
 </body>
 
 </html>

@@ -26,6 +26,6 @@ def edit(request, id):
         if form.is_valid():
             form.save()
             return redirect('show')
-    else:
-        form = crudform(instance=instance)
-    return render(request, 'edit.html', {'form': form})
+    myobj=crudform(instance=instance)
+        
+    return render(request, 'edit.html', {'form': myobj})

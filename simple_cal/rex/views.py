@@ -19,8 +19,9 @@ def add(request):
             try:
                 result=int(one)/int(two)
             except ZeroDivisionError:
-                print('can not divide by zero')                
-        
-        return HttpResponse(result)
+
+                print('can not divide by zero')            
+        result=result
+        return render (request,'index.html',{"val":result})
     else:
         return render(request,'index.html')
