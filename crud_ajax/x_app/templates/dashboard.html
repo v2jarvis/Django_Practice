@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Dashboard</title>
+</head>
+<body>
+    <center>
+        <div>
+            <br>
+            
+            <label for="name">Name:</label> 
+            <input type="text" name="name" id="name">
+            
+            <label for="course">Course:</label>
+            <input type="text" name="course" id="course">
+            
+            <label for="mobile">Mobile:</label>
+            <input type="number" name="mobile" id="mobile">
+            
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email">
+            
+            <label for="address">Address:</label>
+            <input type="text" name="address" id="address">
+            
+            <br>
+            <br>
+    
+            <input type="submit" value="Insert" id="sbt">
+        </div>
+    </center>
+    <input type="search" id="search" placeholder="Search Data">
+    <button id="show">Load Database</button>
+    <div id="database"></div>
+
+    <script>
+        $(document).ready(function () {
+
+            function showalldata() {
+                $.ajax({
+                    url: 'retrive',
+                    type: 'GET',
+                    success: function (data) {
+                        showinfo(data)
+                    }
+                })
+
+                function showinfo(data) {
+                    var table = "<table border=1 cellspacing=0 cellpadding=10><tr> <th>ID </th><th>Username </th><th>Email</th><th>Action</th>";
+                    for (let i = 0; i < data.length; i++) {
+                        table += '<tr> <td>' + data[i].id + ' </td><td>' + data[i].name + '</td><td>' + data[i].email + '</td><td>'+data[i].course +'</td><td>'+data[i].mobile+'</td><td>'+data[i].address +'<td><button>Delete</button></td></tr>';
+                    }
+                    table += '</table>';
+                    $('#database').html(table);
+                }
+
+
+            }
+
+            $('#show').on('click', function () {
+                showalldata()
+            })//show 
+
+            $('#sbt').on('click', function () {
+                let name = $('#name').val();
+                let course = $('#course').val();
+                let email = $('#email').val();
+                let address = $('#address').val();
+                let mobile = $('#mobile').val();
+                $.ajax({
+                    url: 'insert',
+                    type: 'GET',
+                    data: { name: name, email: email, course: course, address:address, mobile:mobile },
+                    success: function (data) {
+                        if (data.message == 1) {
+                            showalldata();
+                        }
+                        else {
+                            alert("cant addeded");
+
+                        }
+                    }
+                })
+            })//sbt button
+
+            $('#search').keyup(function () {
+
+                let value = $(this).val();
+                $.ajax({
+                    url: 'search1',
+                    type: 'GET',
+                    data: { search: value },
+                    success: function (data) {
+                        result(data);
+
+                    }
+                })
+                function result(data) {
+                    var table = "<table border=1 cellspacing=0 cellpadding=10><tr> <th>ID </th><th>Username </th><th>Email</th><th>Action</th>";
+                    for (let i = 0; i < data.length; i++) {
+                        table += '<tr> <td>' + data[i].id + ' </td><td>' + data[i].name + '</td><td>' + data[i].email + '</td><td>'+data[i].course +'</td><td>'+data[i].mobile+'</td><td>'+data[i].address +'<td><button>Delete</button></td></tr>';
+                    }
+                    table += '</table>';
+                    $('#database').html(table);
+                }
+            })
+        })//jquery
+    </script>
+    </body>
+    
+    </html>
