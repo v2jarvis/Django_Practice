@@ -49,6 +49,7 @@ def loginn(request):
         user=authenticate(username=user,password=password)
         if(user is not None):
             login(request, user)
+            
             return redirect('user')
         else:
             return HttpResponse("<script>alert('Password Not Match');</script>")

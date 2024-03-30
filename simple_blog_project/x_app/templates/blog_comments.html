@@ -1,0 +1,127 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="{% static 'fevicon/home.ico' %}">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+      <style>
+            .navbar-nav {
+                  margin-left: auto;
+                  gap: 20px;
+            }
+
+            .mybutton {
+                  display: flex;
+                  justify-content: space-between;
+            }
+            .navbar{
+                  background-color: #0097a4;
+            }
+            footer{
+                  background-color: #0097a4;
+            }
+      </style>
+</head>
+
+<body>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                  <a class="navbar-brand" href="#"><h2>Technology Blogs</h2></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav">
+                              <li class="nav-item">
+                                    <a class="nav-link {% block homeactive %} {% endblock homeactive %}"
+                                          aria-current="page" href="/">Home</a>
+                              </li>
+                              {% if user.is_authenticated %}
+                              <li class="nav-item">
+                                    <a class="nav-link {% block add_blogs_active %} {% endblock add_blogs_active %}"
+                                          href="/add_blogs/">Add Blogs</a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link active" href="#">Hello {{request.user}}</a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link {% block profileactive %} {% endblock profileactive %}"
+                                          href="/profile/">Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link" href="/logout/">Logout</a>
+                              </li>
+                              {% else %}
+                              <li class="nav-item">
+                                    <a class="nav-link {% block registeractive %} {% endblock registeractive %}"
+                                          href="/register/">Register</a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link {% block loginactive %} {% endblock loginactive %}"
+                                          href="/login/">Login</a>
+                              </li>
+                              {% endif %}
+                        </ul>
+                  </div>
+            </div>
+      </nav>
+      <div class="card mb-3">
+            <div class="card-body">
+                  <h3 class="card-title">{{post.title}}</h3>
+                  <br>
+                  <img src="/media/{{post.image}}" class="card-img-top" alt="..." height="500px" width="500px">
+                  <h6 class="card-title">By {{post.author}} {{post.dateTime}}</h6>
+                  <br>
+                  <p class="card-text">{{post.content}}</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+      </div>
+
+      <footer class="text-center text-light text-lg-starttext-light mt-2">
+
+            <section class="">
+                  <div class="container text-center text-md-start mt-5">
+                        <div class="row mt-3">
+                              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                                    <h6 class="text-uppercase fw-bold mb-4">
+                                          <br>
+                                          <p class="fas fa-gem me-3" style="font-size: 25px;">Chetu India Pvt Ltd</p>
+                                    </h6>
+                                    <p>
+                                          Chetu is a US-based software development company providing businesses
+                                          worldwide with tailored
+                                          software solutions from industry specialized developers.
+                                          Chetu is a true and seamless backend technology partner, helping startups,
+                                          SMBs, and Fortune 5000 companies accelerate the development of desktop
+                                    </p>
+                              </div>
+                              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                                    <br>
+                                    <h6 class="text-uppercase fw-bold mb-4" style="font-size: 27px;">Contact</h6>
+                                    <p><i class="fas fa-home me-3"></i>Noida Sector 63A</p>
+                                    <p>
+                                          <i class="fas fa-envelope me-3"></i>
+                                          <a href="#" style="color: white;">niteesh.developer01@gmail.com</a>
+                                    </p>
+                                    <p><i class="fas fa-phone me-3"></i>8756675666</p>
+                              </div>
+                        </div>
+                  </div>
+            </section>
+            <div class="text-center p-4" style="background-color:#045b63;">
+                  <p>© 2024 Copyright Technology Blog by Niteesh, All rights reserved.</p>
+            </div>
+      </footer>
+</body>
+
+</html>
