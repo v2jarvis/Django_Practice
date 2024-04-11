@@ -14,81 +14,113 @@
 </head>
 
 <body>
-    <div class="card text-center">
-        <div class="card-header">
-            CRUD-AJAX
-        </div>
-        <div class="card-body">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Add
-                Data</button>
-            <div id="myModal1" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Dashboard</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                <br>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">CRUD-AJAX</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                                <label for="name">Name:</label>
-                                <input type="text" name="name" id="name">
-
-                                <label for="course">Course:</label>
-                                <input type="text" name="course" id="course">
-
-                                <label for="mobile">Mobile:</label>
-                                <input type="number" name="mobile" id="mobile">
-
-                                <label for="email">Email:</label>
-                                <input type="email" name="email" id="email">
-
-                                <label for="address">Address:</label>
-                                <input type="text" name="address" id="address">
-
-                                <br>
-                                <br>
-
-                                <input type="submit" value="Insert" id="sbt">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add
+                                Data</button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#myModal">Show Data</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+   
+        
+                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Add Data</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div class="modal-body">
+                                <div>
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" name="name" id="name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="course">Course:</label>
+                                        <input type="text" name="course" id="course" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile">Mobile:</label>
+                                        <input type="number" name="mobile" id="mobile" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Address:</label>
+                                        <input type="text" name="address" id="address" class="form-control">
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" value="Insert" id="sbt">Insert</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
-
-                </div>
-            </div>
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show
-                Data</button>
-            <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Dashboard</h4>
-                        </div>
-                        <div class="modal-body">
-                            <input type="search" id="search" placeholder="Search Data">
-                            <button id="show">Load Database</button>
-                            <div id="database"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
+                </div>    
+        
+            <div class="main" style="height: 83vh;">
+                <div class="card">
+                    <div class="card-header">
+                        Dashboard
                     </div>
-
+                    <div class="card-body">
+                        <input type="search" id="search" class="form-control mb-2" placeholder="Search Data">
+                        <button id="show" class="btn btn-primary mb-3">Load Database</button>
+                        <div id="database"></div>
+                    </div>
+                    <div class="card-footer" id="data">
+                        <button type="button" class="btn btn-secondary" id="datahide">Close</button>
+                    </div>
                 </div>
+                
+
+
+
+
+
             </div>
-        </div>
-        <div class="card-footer text-body-secondary">
-            by Niteesh
-        </div>
-    </div>
+
+        <footer class="footer mt-auto py-3 bg-dark p-5">
+            <div class="container text-center">
+                <span class="text-light">© 2024 CRUD-AJAX BY NITEESH. All rights reserved.</span>
+            </div>
+        </footer>
+        
 
     <script>
         $(document).ready(function () {
+
+            $("#datahide").click(function()
+            {
+                $("#data").hide();
+            })
+
 
             //show all data
             function showalldata() {
@@ -99,6 +131,43 @@
                         showinfo(data)
                     }
                 })
+
+                // function showinfo(data) {
+                //     var table = '<table class="table table-hover table-striped">';
+                //     table += '<thead class="thead-dark">';
+                //     table += '<tr>';
+                //     table += '<th>ID</th>';
+                //     table += '<th>Name</th>';
+                //     table += '<th>Email</th>';
+                //     table += '<th>Course</th>';
+                //     table += '<th>Mobile</th>';
+                //     table += '<th>Address</th>';
+                //     table += '<th>Action</th>';
+                //     table += '</tr>';
+                //     table += '</thead>';
+                //     table += '<tbody>';
+
+                //     for (let i = 0; i < data.length; i++) {
+                //         table += '<tr>';
+                //         table += '<td>' + data[i].id + '</td>';
+                //         table += '<td>' + data[i].name + '</td>';
+                //         table += '<td>' + data[i].email + '</td>';
+                //         table += '<td>' + data[i].course + '</td>';
+                //         table += '<td>' + data[i].mobile + '</td>';
+                //         table += '<td>' + data[i].address + '</td>';
+                //         table += '<td>';
+                //         table += '<button class="btn btn-danger delete-btn" id=del-btn data-id="' + data[i].id + '">Delete</button>';
+                //         table += '<button class="btn btn-primary edit-btn" id=edit-btn data-id="' + data[i].id + '">Edit</button>';
+                //         table += '</td>';
+                //         table += '</tr>';
+                //     }
+                //     table += '</tbody>';
+                //     table += '</table>';
+
+                //     $('#database').html(table);
+                // }
+
+        
 
                 //show info
                 function showinfo(data) {
@@ -188,6 +257,8 @@
                         var table=+ "<input type=text value= "+ data[name] + " placeholder=name id=name> "
 
                         $('#edit-btn').html(table);
+
+
 
 
                     }

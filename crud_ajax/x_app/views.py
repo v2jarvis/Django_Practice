@@ -20,7 +20,7 @@ def re(request):
 
 def search1(request):
     val=request.GET['search']
-    data=list(Student.objects.filter(user__contains=val).values())
+    data=list(Student.objects.filter(user__startwith=val).values())
     print(data)
     return JsonResponse(data,safe=False)
 
