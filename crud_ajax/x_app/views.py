@@ -22,4 +22,10 @@ def search1(request):
     val=request.GET['search']
     data=list(Student.objects.filter(user__contains=val).values())
     print(data)
-    return JsonResponse(data,safe=False);
+    return JsonResponse(data,safe=False)
+
+def delete1(request):
+    id=request.GET['id']
+    data=Student.objects.get(id=id)
+    data.delete()
+    return JsonResponse({'message':'1'})
