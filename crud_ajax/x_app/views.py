@@ -29,3 +29,9 @@ def delete1(request):
     data=Student.objects.get(id=id)
     data.delete()
     return JsonResponse({'message':'1'})
+
+def edit(request):
+    print("-----------------start")
+    id=request.GET['id']
+    data=list(Student.objects.filter(id=id).values())
+    return JsonResponse(data,safe=False)

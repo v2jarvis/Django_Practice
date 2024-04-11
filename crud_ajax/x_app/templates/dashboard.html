@@ -19,76 +19,78 @@
             CRUD-AJAX
         </div>
         <div class="card-body">
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Add Data</button>
-    <div id="myModal1" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Dashboard</h4>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <br>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Add
+                Data</button>
+            <div id="myModal1" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Dashboard</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <br>
 
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name">
+                                <label for="name">Name:</label>
+                                <input type="text" name="name" id="name">
 
-                        <label for="course">Course:</label>
-                        <input type="text" name="course" id="course">
+                                <label for="course">Course:</label>
+                                <input type="text" name="course" id="course">
 
-                        <label for="mobile">Mobile:</label>
-                        <input type="number" name="mobile" id="mobile">
+                                <label for="mobile">Mobile:</label>
+                                <input type="number" name="mobile" id="mobile">
 
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" id="email">
+                                <label for="email">Email:</label>
+                                <input type="email" name="email" id="email">
 
-                        <label for="address">Address:</label>
-                        <input type="text" name="address" id="address">
+                                <label for="address">Address:</label>
+                                <input type="text" name="address" id="address">
 
-                        <br>
-                        <br>
+                                <br>
+                                <br>
 
-                        <input type="submit" value="Insert" id="sbt">
+                                <input type="submit" value="Insert" id="sbt">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                 </div>
             </div>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show
+                Data</button>
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Dashboard</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="search" id="search" placeholder="Search Data">
+                            <button id="show">Load Database</button>
+                            <div id="database"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
 
-        </div>
-    </div>
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Data</button>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Dashboard</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="search" id="search" placeholder="Search Data">
-                    <button id="show">Load Database</button>
-                    <div id="database"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
-        </div>
-    </div>
-          
         </div>
         <div class="card-footer text-body-secondary">
-          by Niteesh
+            by Niteesh
         </div>
-      </div>
+    </div>
 
     <script>
         $(document).ready(function () {
 
+            //show all data
             function showalldata() {
                 $.ajax({
                     url: 'retrive',
@@ -98,16 +100,15 @@
                     }
                 })
 
+                //show info
                 function showinfo(data) {
                     var table = "<table border=1 cellspacing=0 cellpadding=10><tr> <th>ID </th><th>Username </th><th>Email</th><th>Action</th>";
                     for (let i = 0; i < data.length; i++) {
-                        table += '<tr> <td>' + data[i].id + ' </td><td>' + data[i].name + '</td><td>' + data[i].email + '</td><td>' + data[i].course + '</td><td>' + data[i].mobile + '</td><td>' + data[i].address + '<td><button id=del-btn data-sid='+ data[i].id+'>Delete</button></td><td><button>Edit</button></td></tr>';
+                        table += '<tr> <td>' + data[i].id + ' </td><td>' + data[i].name + '</td><td>' + data[i].email + '</td><td>' + data[i].course + '</td><td>' + data[i].mobile + '</td><td>' + data[i].address + '<td><button id=del-btn data-sid=' + data[i].id + '>Delete</button></td><td><button id=edit-btn data-sid=' + data[i].id + ' >Edit</button></td></tr>';
                     }
                     table += '</table>';
                     $('#database').html(table);
                 }
-
-
             }
 
             $('#show').on('click', function () {
@@ -147,7 +148,10 @@
                         result(data);
 
                     }
-                })
+                })//ajax closing
+
+
+                //result function
                 function result(data) {
                     var table = "<table border=1 cellspacing=0 cellpadding=10><tr> <th>ID </th><th>Username </th><th>Email</th><th>Action</th>";
                     for (let i = 0; i < data.length; i++) {
@@ -156,14 +160,14 @@
                     table += '</table>';
                     $('#database').html(table);
                 }
-            })
+            })//search function
 
-            $(document).on('click','#del-btn',function() {
+            $(document).on('click', '#del-btn', function () {
                 let id = $(this).data('sid');
                 $.ajax({
                     url: 'delete1',
                     type: 'GET',
-                    data: {id: id },
+                    data: { id: id },
                     success: function (data) {
                         if (data.message == 1) {
                             showalldata()
@@ -171,6 +175,29 @@
                     }
                 })//ajax function
             })//delete function 
+
+            $(document).on('click', "#edit-btn", function () {
+                let id = $(this).data('sid');
+                $.ajax({
+                    url: 'edit',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (data) {
+                        console.log(data)
+
+                        var table=+ "<input type=text value= "+ data[name] + " placeholder=name id=name> "
+
+                        $('#edit-btn').html(table);
+
+
+                    }
+
+                })//ajax closing
+
+
+            })//edit function
+
+
         })//jquery
     </script>
 </body>
