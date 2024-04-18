@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c%h%#k0x22p1@n9_-z%oxp6t=&mtt(1vxbuxt#(ew4=^x=e0u&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #//False
 
-ALLOWED_HOSTS = ['v2jarvis.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'student_info.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_info',
-        'USER': 'root',
-        'PASSWORD': 'data@123',
-        'HOST':'localhost',
-        'PORT':'3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

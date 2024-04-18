@@ -12,7 +12,27 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
-  <h1 class="bg-info text-white bg-dark p-2 text-center text">Student Information</h1>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Student Information, hii {{user.username}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'start' %}">Home</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">logout</a>
+              </li>
+              {%endif%}
+            </ul>
+        </div>
+    </div>
+</nav>
   <form action="" method="post">
     {%csrf_token%}
     <table class="table">
@@ -37,12 +57,19 @@
           <td>{{x.course}}</td>
           <td>{{x.mobile}}</td>
           <td>{{x.address}}</td>
+          {%if user.is_superuser%}
           <td><a href="/edit/{{x.sid}}"><span class="material-symbols-outlined">edit</span></a></td>
           <td ><a href="/del/{{x.sid}}"> <span class="material-symbols-outlined">delete</span></a></td>
+          {%endif%}
         </tr>
       </tbody>
       {%endfor%}
     </table>
   </form>
+  <footer class="footer bg-dark text-white text-center">
+    <div class="container p-4">
+        <p>&copy; 2024 StudentInfo. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>

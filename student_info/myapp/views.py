@@ -1,7 +1,16 @@
-from django.http import HttpResponse
-from django.shortcuts import render,redirect
 from .models import Employee
+from django.shortcuts import render,redirect
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required 
 
+def home(request):
+    return render(request,'home.html')
+
+
+@login_required(login_url="/loginn")
 def std_info(request):
     if(request.method=='POST'):
         name=request.POST['name']
@@ -15,19 +24,24 @@ def std_info(request):
     else:
         return render(request,'index.html')
 
+
+@login_required(login_url="/loginn")
 def show(request):
     data=Employee.objects.all()
     return render(request,'show.html',{'data':data})      
     
+@login_required(login_url="/loginn")    
 def del_data(request,sid):
     data=Employee.objects.get(sid=sid)
     data.delete()
     return redirect("show")
-    
+
+@login_required(login_url="/loginn")
 def edit(request,sid):
     data=Employee.objects.get(sid=sid)
     return render(request, 'edit.html', {'data': data})
 
+@login_required(login_url="/loginn")
 def update(request, sid):
     if request.method=='POST':
         data=Employee.objects.get(sid=sid)
@@ -40,4 +54,46 @@ def update(request, sid):
         return redirect('show')
     else:
         return redirect('show')
+    
 
+def register(request):
+    if request.method=='POST':
+        first=request.POST['first']
+        last=request.POST['last']
+        user=request.POST['user']
+        email=request.POST['email']
+        cpass=request.POST['cpass']
+        rpass=request.POST['rpass']
+        super=request.POST['super']
+        staff=request.POST['staff']
+
+        if(cpass==rpass):
+            msg=User.objects.filter(username=user).exists()
+            if(msg):
+                print("Already Exist")
+                return redirect('register')
+            else:
+                User.objects.create(first_name=first,last_name=last,username=user,email=email,password=make_password(rpass),is_superuser=super,is_staff=staff)
+                return redirect('start')
+        else:
+            return HttpResponse("<script>alert('Password Not Match');</script>")
+    else:
+        return render(request,'register.html') 
+    
+
+def loginn(request):
+    if request.method=='POST':
+        user=request.POST['user']
+        password=request.POST['password']
+        user=authenticate(username=user,password=password)
+        if(user is not None):
+            login(request, user)
+            return redirect('start')
+        else:
+            return HttpResponse("<script>alert('Password Not Match');</script>")
+    return render(request,'login.html')
+
+
+def logoutt(request):
+    logout(request)
+    return redirect('start')

@@ -11,41 +11,76 @@
     <title>StudentInfo</title>
 </head>
 <body>
-    <h1 class="bg-info text-white bg-dark p-2 text-center text">Student Information</h1>
-    <form action="" method="post">
-        {%csrf_token%}
-
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-          <input type="text" name="name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Student Information, hii {{user.username}}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'start' %}">Home</a>
+                  </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'show' %}">ShowData</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'loginn' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-          <input type="text" name="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </nav>
+    <div class="container">
+        <div class="card text-black mt-5" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Add Data</p>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                                <input type="text" name="name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                                <input type="text" name="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Course</span>
+                                <input type="text" name="course" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Mobile</span>
+                                <input type="text" name="mob" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
+                                <input type="text" name="address" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button class="btn btn-primary bg-dark" type="submit">Submit</button>
+                            </div>
+                            <br>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button class="btn btn-primary bg-dark" type="reset">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">Course</span>
-          <input type="text" name="course" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+    <footer class="footer bg-dark text-white text-center">
+        <div class="container p-4">
+            <p>&copy; 2024 StudentInfo. All rights reserved.</p>
         </div>
-
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">Mobile</span>
-          <input type="text" name="mob" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
-        
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
-          <input type="text" name="address" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <button class="btn btn-primary bg-dark "  type="submit">Submit</button>
-        </div>
-        <br>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <button class="btn btn-primary bg-dark "  type="reset">Reset</button>
-        </div>
-    </form>
+    </footer>
 </body>
 </html>
