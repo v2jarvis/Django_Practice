@@ -28,6 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'loginn' %}">Login</a>
                 </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                    </li>
+                {%endif%}
             </ul>
         </div>
     </div>
@@ -88,13 +93,13 @@
             </div>
 
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="1" name="super" checked>
+              <input class="form-check-input" type="checkbox" name="super">
               <label class="form-check-label" for="flexCheckDefault">
                 Superuser
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="1" name="staff" checked>
+              <input class="form-check-input" type="checkbox" name="staff" >
               <label class="form-check-label" for="flexCheckChecked">
                 Staff
               </label>

@@ -58,14 +58,15 @@ def update(request, sid):
 
 def register(request):
     if request.method=='POST':
-        first=request.POST['first']
-        last=request.POST['last']
-        user=request.POST['user']
-        email=request.POST['email']
-        cpass=request.POST['cpass']
-        rpass=request.POST['rpass']
-        super=request.POST['super']
-        staff=request.POST['staff']
+        first=request.POST.get('first', '')
+        last=request.POST.get('last', '')
+        user=request.POST.get('user', '')
+        email=request.POST.get('email', '')
+        cpass=request.POST.get('cpass', '')
+        rpass=request.POST.get('rpass', '')
+        super=request.POST.get('super', False)
+        staff=request.POST.get('staff', False)
+
 
         if(cpass==rpass):
             msg=User.objects.filter(username=user).exists()
