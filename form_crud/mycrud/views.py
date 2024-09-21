@@ -9,8 +9,9 @@ def myshow(request):
 def add(request):
     if request.method=='POST':
         data=crudform(request.POST)
-        data.save()
-        return redirect('show')
+        if data.is_valid():
+            data.save()
+            return redirect('show')
     myobj=crudform()
     return render(request,'add.html',{'add':myobj})
 

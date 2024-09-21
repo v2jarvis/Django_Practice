@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Database</h1>
+    <div>
+        <input type="text" id='user' placeholder="Username">
+        <input type="email" id='email' placeholder="Email">
+        <input type="text" id='password' placeholder="Password">
+        <input type="submit" value="Insert" id="sbt">
+    
+    
+    </div>
+    <input type="search" id="search" placeholder="Search Data">
+   
+    <button id="show">Load Database</button>
+    <div id="database"></div>
+    <div id="editform"></div>
+
+    <script>
+        $(document).ready(function(){
+
+            function showalldata(){
+                $.ajax({
+                        url:'retrive',
+                        type:'GET',
+                        success:function(data){
+
+                               showinfo(data)
+
+                        }
+                    })
+                       
+                        function showinfo(data)
+                            {
+                                var table="<table border=1 cellspacing=0 cellpadding=10><tr> <th>ID </th><th>Username </th><th>Email</th><th>Action</th>";
+                                    for(let i=0;i<data.length;i++)
+                                    {
+                                      table+='<tr> <td>'+ data[i].id +' </td><td>'+  data[i].user+'</td><td>'+data[i].email+'</td>'+'<td><button id=delete-btn data-id='+data[i].id+'>Delete</button><button id=edit-btn data-eid='+data[i].id+'>Edit</button></td></tr>';  
+                                    }
+                                    table+='</table>';
+                                    $('#database').html(table);
+                            }
+                        
+                            
+            }
+
+            $('#show').on('click',function(){
+                   showalldata()
+
+            })//show 
+
+                $('#sbt').on('click',function(){
+                    let user=$('#user').val();
+                    let email=$('#email').val();
+                    let password=$('#password').val();
+                    $.ajax({
+                        url:'insert',
+                        type:'GET',
+                        data:{user:user,email:email,password:password},
+                        success:function(data){
+                            if (data.message==1){
+                                showalldata();
+                            }
+                            else{
+                                alert("cant addeded");
+
+                                
+                            }
+                        
+                        }
+
+
+
+                    })
+
+
+
+                })//sbt button
+
+                $('#search').keyup(function(){
+
+                    let  value=$(this).val();
+                    $.ajax({
+                            url:'search1',
+                            type:'GET',
+                            data:{search:value},
+                            success:function(data){
+                                result(data);   
+
+                            }
+
+
+
+
+                    })
+
+                    function result(data)
+                            {
+                                var table="<table border=1 cellspacing=0 cellpadding=10><tr> <th>ID </th><th>Username </th><th>Email</th><th>Action</th>";
+                                    for(let i=0;i<data.length;i++)
+                                    {
+                                      table+='<tr> <td>'+ data[i].id +' </td><td>'+  data[i].user+'</td><td>'+data[i].email+'</td>'+'<td><button>Delete</button></td></tr>';  
+                                    }
+                                    table+='</table>';
+                                    $('#database').html(table);
+                            }
+
+
+
+                })
+
+                    $(document).on( 'click','#delete-btn' , function () {
+                        var id = $(this).data('id');
+                        if(confirm("Do you Want to Delete")){
+                        $.ajax({
+
+                            url:'erase',
+                            type:'GET',
+                            data:{id:id},
+                            success:function(data){
+                                    showalldata
+                            }
+
+
+
+
+                        })}//confim
+                        else{
+                            alert("Thanks You");
+                        }
+
+                    })//delete button
+
+                    $(document).on('click','#edit-btn' , function () {
+                        var id = $(this).data('eid');
+                        $.ajax({
+
+                            url:'edit',
+                            type:'GET',
+                            data:{id:id},
+                            success:function(data){
+                                showmydata(data);
+                            }
+
+
+                            })//ajax
+
+                            function showmydata(data)
+                            {
+                               let output="";
+                                for(let i=0;i<data.length ;i++)
+                                {
+                                    output+="<input type=number value="+data[i].id+" id=eid><br><input type=text value="+data[i].user+" id=euser><br><input type=email value="+data[i].email+" id=eemail><input type='submit' id=sbt>";                               }
+                            
+                            $('#editform').html(output);}
+                    })//edit btn
+                $(document).on('click','#sbt',function(){
+                    let id=$('#eid').val();
+                    let name=$('#euser').val();
+                    let email=$('#eemail').val();
+                    $.ajax({
+
+                        url:'update',
+                        type:'GET',
+                        data:{id:id,name:name,email:email},
+                        success:function(data){
+                                if(data.message=='1')
+                                    {
+                                        showalldata();
+                                        $('#editform').hide();
+                                    }
+                        }
+
+                    })
+                })    
+        })//jquery
+    </script>
+</body>
+</html>

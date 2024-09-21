@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+        .error-container h1 {
+            font-size: 6rem;
+            color: #dc3545;
+        }
+        .error-container p {
+            font-size: 1.25rem;
+            color: #6c757d;
+        }
+        .btn-custom {
+            background-color: #dc3545;
+            color: white;
+            border-radius: 0.25rem;
+        }
+        .btn-custom:hover {
+            background-color: #c82333;
+            color: white;
+        }
+        .animation {
+            width: 150px;
+            height: 150px;
+            background: url('https://media.giphy.com/media/3oKIPjHuRbPyzDBhW0/giphy.gif') no-repeat center center;
+            background-size: contain;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid error-container">
+        <div>
+            <h1 class="display-1">404</h1>
+            <p class="lead">Oops! It looks like the page you’re looking for doesn’t exist.</p>
+            <a href="{% url 'home' %}" class="btn btn-custom btn-lg">Return to Home</a>
+            <div class="animation"></div>
+            <p>If you believe this is an error, please <a href="mailto:support@yourdomain.com">contact support</a>.</p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

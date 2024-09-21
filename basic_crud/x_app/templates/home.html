@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'fevicon/home.ico' %}">
+    <title>StudentInfo - Home</title>
+    <style>
+        *{
+          box-sizing: border-box;
+        }
+      footer{
+            background-color: #344142;
+      }
+      </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">Student Information</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'show' %}">ShowData</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'add' %}">AddData</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'loginn' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                    </li>
+                    {%endif%}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center mb-4">Welcome to StudentInfo!</h2>
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{% static 'Image/images.png' %}" id="co_img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-lg-start text-light mt-2">
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+              <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    <br>
+                    <p class="fas fa-gem me-3" style="font-size: 25px;">Chetu India Pvt Ltd<p>
+                  </h6>
+                  <p>
+                    Chetu is a US-based software development company providing businesses worldwide, 
+                    Explore endless possibilities with Student System,
+                    where quality meets convenience. Discover curated collections, 
+                    shop confidently, and enjoy seamless experiences with us.
+                  </p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                  <br>
+                  <h6 class="text-uppercase fw-bold mb-4" style="font-size: 27px;">Contact</h6>
+                  <p><i class="fas fa-home me-3"></i>Noida Sector 63A</p>
+                  <p>
+                    <i class="fas fa-envelope me-3"></i>
+                    <a href="#" style="color: white;">niteesh.developer01@gmail.com</a>
+                  </p>
+                  <p><i class="fas fa-phone me-3"></i>+91-8756675666</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="text-center p-4 bg-dark">
+            <p>© 2024 Copyright Student System by Niteesh, All rights reserved.</p>
+          </div>
+        </footer>
+
+    <script>
+        $(document).ready(function(){
+            // function set_cookie(){
+            //     alert("hii")
+            // }
+            $("#co_img").click(function(data){
+                $.ajax({
+                    url:'set_cookie',
+                    type:'GET',
+                    success:function(data){
+                        alert(data)
+                    }
+                });//ajax closing
+            })
+        });//jquery closing
+    </script>
+
+</body>
+</html>

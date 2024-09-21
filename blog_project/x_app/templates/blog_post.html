@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Blog Post</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="border border-dark form-control" id="title" name="title" maxlength="128" required>
+        </div>
+        <div class="mb-3">
+            <label for="headline" class="form-label">Headline</label>
+            <textarea class="border border-dark form-control" id="headline" name="headline" rows="2"
+                required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label">Body</label>
+            <textarea class="border border-dark form-control" id="body" name="body" rows="6" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="border border-dark form-control" id="image" name="image">
+        </div>
+        <div class="mb-3">
+            <label for="slug" class="form-label">Slug</label>
+            <input type="text" class="border border-dark form-control" id="slug" name="slug" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Post</button>
+    </form>
+</div>
+{% endblock content %}

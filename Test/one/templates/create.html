@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="user" id="user"><span id="result"></span><Br>
+        <input type="email" name="email" id="email"><Br>
+        <input type="password" name="pass" id="pas"><Br>
+            <input type="submit"><Br>
+
+
+
+    </form>
+<script>
+ $(document).ready(function(){
+
+    $('#user').blur(function(){
+        let name=$(this).val()
+        $.ajax({
+            url:'myerror',
+            type:'GET',
+            data:{name:name},
+            success:function(data){
+                if(data.error==1){
+                $('#user').css("border","2px solid red")
+                
+                }
+               
+
+            }
+
+        }) //ajax
+        
+    }) //blur
+
+
+
+
+
+ })//jqury
+
+</script>
+    
+</body>
+</html>

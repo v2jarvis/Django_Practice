@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="card">
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">{{ post.title }}</h1>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="img-fluid" alt="{{ post.title }}">
+            {% else %}
+                <img src="{% static 'Images/default-image.png' %}" class="img-fluid" alt="No Image Available">
+            {% endif %}
+            <p class="lead">{{ post.headline }}</p>
+            <span class="days-ago">{{ post.created_at }}</span>
+            <hr class="my-4">
+            <p>{{ post.body }}</p>
+            <p class="lead">
+                <a class="jumbo btn btn-outline-success" href="{% url 'home' %}" role="button">Go back</a>
+                {% if user.is_authenticated %}
+                    <a class="jumbo btn btn-outline-primary" href="{% url 'editblog' post.slug %}" role="button">Edit</a>
+                    <a class="jumbo btn btn-outline-danger" href="{% url 'delblog' post.slug %}" role="button">Delete</a>
+                {%endif%}
+            </p>
+        </div>
+
+        <div class="d-flex">
+            <a href="{% url 'like_post' post.slug %}" class="btn btn-outline-success me-2">Like ({{ post.likes.count }})</a>
+            <a href="{% url 'dislike_post' post.slug %}" class="btn btn-outline-danger">Dislike ({{ post.dislikes.count }})</a>
+        </div>
+
+        <div class="comments mt-5">
+            <h2>Comments</h2>
+            {% for comment in post.comments.all %}
+            <div class="comment">
+                <p><strong>{{ comment.author }}</strong> - {{ comment.created_at }}</p>
+                <p>{{ comment.body }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="comment-form mt-5">
+            <h3>Add a Comment</h3>
+            <form action="{% url 'add_comment' post.slug %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <textarea name="body" rows="4" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+        </div>
+        {% else %}
+        <p>You must be logged in to add a comment.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

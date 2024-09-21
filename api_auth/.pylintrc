@@ -1,0 +1,8 @@
+[MASTER]
+load-plugins=pylint_django
+
+[TYPECHECK]
+generated-members=django.db.models.fields.AutoField, django.db.models.fields.BigIntegerField, django.db.models.fields.IntegerField, django.db.models.fields.BooleanField, django.db.models.fields.CharField, django.db.models.fields.DateField, django.db.models.fields.DateTimeField, django.db.models.fields.DecimalField, django.db.models.fields.EmailField, django.db.models.fields.FileField, django.db.models.fields.FloatField, django.db.models.fields.ImageField, django.db.models.fields.JSONField, django.db.models.fields.TextField, django.db.models.fields.TimeField, django.db.models.fields.URLField
+
+[DESIGN]
+max-args=5
