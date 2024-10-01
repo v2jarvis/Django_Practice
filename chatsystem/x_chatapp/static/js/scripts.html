@@ -1,0 +1,125 @@
+// --------------------------Web Socket section----------------------------------
+
+const roomName = "{{ room_name }}";
+const chatSocket = new WebSocket(
+    'ws://' + window.location.host + '/ws/' + roomName + '/'
+);
+
+chatSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    const message = data.message;
+    const sender = data.sender;
+    const timestamp = data.timestamp;
+
+    const formattedMessage = `${timestamp} - ${sender}: ${message}\n`;
+
+    $('#chat-log').val($('#chat-log').val() + formattedMessage);
+    $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);  
+};
+
+chatSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
+
+$('#chat-message-input').focus();
+
+$('#chat-message-input').on('keyup', function(e) {
+    if (e.keyCode === "Enter") {  
+        $('#chat-message-submit').click();
+    }
+});
+
+$('#chat-message-submit').on('click', function() {
+    const message = $('#chat-message-input').val();
+    if (message.trim() !== '') {
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        $('#chat-message-input').val(''); 
+    }
+});
+// --------------------------End of Web Socket secton-----------------------------------
+
+
+// login and registration validation
+$(document).ready(function() {
+    // Login Form Validation
+    $("#loginModal form").submit(function(event) {
+      var username = $("#loginUsername").val();
+      var password = $("#loginPassword").val();
+  
+      if (username.length < 3) {
+        $("#loginUsername").next("span").text("Username must be at least 3 characters long").show();
+        return false;
+      } else {
+        $("#loginUsername").next("span").hide();
+      }
+  
+      if (password.length < 8) {
+        $("#loginPassword").next("span").text("Password must be at least 8 characters long").show();
+        return false;
+      } else {
+        $("#loginPassword").next("span").hide();
+      }
+    });
+  
+    // Register Form Validation
+    $("#registerModal form").submit(function(event) {
+      var firstName = $("#registerFirstName").val();
+      var lastName = $("#registerLastName").val();
+      var username = $("#registerUsername").val();
+      var email = $("#registerEmail").val();
+      var password = $("#registerPassword").val();
+      var repeatPassword = $("#registerRepeatPassword").val();
+  
+      if (firstName.length < 2) {
+        $("#registerFirstName").next("span").text("First name must be at least 2 characters long").show();
+        return false;
+      } 
+      else {
+        $("#registerFirstName").next("span").hide();
+      }
+  
+      if (lastName.length < 2) {
+        $("#registerLastName").next("span").text("Last name must be at least 2 characters long").show();
+        return false;
+      } 
+      else {
+        $("#registerLastName").next("span").hide();
+      }
+  
+      if (username.length < 3) {
+        $("#registerUsername").next("span").text("Username must be at least 3 characters long").show();
+        return false;
+      } 
+      else {
+        $("#registerUsername").next("span").hide();
+      }
+  
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      
+      if (!emailRegex.test(email)) {
+        $("#registerEmail").next("span").text("Please enter a valid email address").show();
+        return false;
+      } 
+      else {
+        $("#registerEmail").next("span").hide();
+      }
+  
+      if (password.length < 8) {
+        $("#registerPassword").next("span").text("Password must be at least 8 characters long").show();
+        return false;
+      } 
+      else {
+        $("#registerPassword").next("span").hide();
+      }
+  
+      if (password!== repeatPassword) {
+        $("#registerRepeatPassword").next("span").text("Passwords do not match").show();
+        return false;
+      } 
+      else {
+        $("#registerRepeatPassword").next("span").hide();
+      }
+    });
+});//Jquery Closing

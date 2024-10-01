@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %}Home - Chat System{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Chat System</h1>
+      <p>This is a simple chat system built with Django Channels and WebSockets.</p>
+      <p>Users can connect with each other and send messages to each other in real-time.</p>
+      <p>Each user has a unique username and can send messages to other users.</p>
+      <p>Messages are stored in the database and can be retrieved later.</p>
+    </div>
+    <!-- user list  -->
+    {% if request.user.is_authenticated %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">User List</div>
+      <ul class="list-group list-group-flush">
+        {% for user in users %}
+        <li class="list-group-item user-item" data-id="{{ user.id }}">
+          {{ user.username }}
+          <span id="unread-count-{{ user.id }}" class="badge bg-danger"
+            style="width: 10px; height: 15px; text-align: center; display: none;"></span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+  <!-- Chat Box -->
+  <div id="chat-box" class="position-fixed bottom-0 end-0 p-3" style="display: none;">
+    <div class="card" style="width: 40rem;">
+      <div class="card-body">
+        <h5 class="card-title">Chat with <span id="chat-username">User</span></h5>
+        <div id="chat-messages" class="mb-3" style="height: 150px; overflow-y: auto;">
+          <!-- chat display here -->
+        </div>
+        <input type="text" id="chat-input" class="form-control" placeholder="Type a message...">
+        <button id="send-msg" class="btn btn-primary mt-2">Send</button>
+        <a href="{% url 'home' %}"><button class="btn btn-success">Back</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+  <script>
+    //jQuery Starting
+    $(document).ready(function () {
+      let currentUserId;
+
+      // Function to fetch unread message counts
+      function fetchUnreadCounts() {
+        $.ajax({
+          url: "{% url 'unread_message_count' %}",
+          type: "GET",
+          success: function (response) {
+            $.each(response.unread_counts, function (userId, count) {
+              if (count > 0) {
+                $("#unread-count-" + userId).text(count).show();
+              } else {
+                $("#unread-count-" + userId).hide();
+              }
+            });
+          },
+          error: function (xhr, status, error) {
+            console.error("Unread count fetching failed: ", status, error);
+          }
+        });
+      }
+
+      // Call fetchUnreadCounts on page load
+      fetchUnreadCounts();
+
+      $(".user-item").click(function () {
+        currentUserId = $(this).data('id');
+        $("#chat-username").text($(this).text());
+        $("#chat-box").show();
+
+        $("#unread-count-" + currentUserId).hide();
+
+        loadMessages(currentUserId);
+      });
+
+
+      function scrollToBottom() {
+        const chatBox = document.getElementById('chat-messages');
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      // Function to send a message
+      function sendMessage() {
+        const message = $("#chat-input").val();
+        if (message.trim() === "") return;
+
+        $.ajax({
+          url: "{% url 'send_message' %}",
+          type: "POST",
+          data: {
+            'recipient': currentUserId,
+            'message': message,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function (response) {
+            const timestamp = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+            const messageHtml = `
+                      <div class="message message-right">
+                          <div class="message-content">
+                              <strong>${response.sender}:</strong> ${response.message}
+                          </div>
+                          <div class="message-time">${timestamp}</div>
+                      </div>`;
+            $("#chat-messages").append(messageHtml);
+            $("#chat-input").val("");
+            scrollToBottom();
+          },
+          error: function (xhr, status, error) {
+            console.error("Message sending failed: ", status, error);
+          }
+        });
+      }
+
+      $("#send-msg").click(sendMessage);
+
+      $("#chat-input").keydown(function (event) {
+        if (event.key === "Enter") {
+          sendMessage();
+          event.preventDefault();
+        }
+      });
+
+      function loadMessages(userId) {
+        $.ajax({
+          url: "{% url 'fetch_messages' %}",
+          type: "POST",
+          data: {
+            'user_id': userId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function (response) {
+            $("#chat-messages").empty();
+            response.messages.forEach(function (msg) {
+              const messageClass = msg.sender === "{{ request.user.username }}" ? "message-right" : "message-left";
+              const messageHtml = `
+                          <div class="message ${messageClass}">
+                              <div class="message-content">
+                                  <strong>${msg.sender}:</strong> ${msg.text}
+                              </div>
+                              <div class="message-time">${msg.timestamp}</div>
+                          </div>`;
+              $("#chat-messages").append(messageHtml);
+            });
+            scrollToBottom();
+          },
+          error: function (xhr, status, error) {
+            console.error("Message fetching failed: ", status, error);
+          }
+        });
+      }
+
+      // Periodically counts every 5 seconds
+      setInterval(fetchUnreadCounts, 5000);
+
+    });//End of jQuery
+</script>
+{% endblock %}
